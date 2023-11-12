@@ -68,7 +68,7 @@ class SleepTimer extends Component<SleepTimerProps, SleepTimerState> {
             <Icon width={18} height={18} icon={'icon-park-outline:sleep-one'} />
           </button>
           {this.state.isDialogOpen && (
-            <div className="rhap_dialog-container">
+            <div className="rhap_dialog-container right-zero">
               <div className="rhap_dialog-header">Sleep Timer</div>
               <div className="rhap_dialog-content">
                 {SLEEP_TIMER.map((v, i) => (

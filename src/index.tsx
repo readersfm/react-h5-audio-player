@@ -108,6 +108,7 @@ interface PlayerProps {
   footer?: ReactNode
   customIcons?: CustomIcons
   layout?: MAIN_LAYOUT
+  middleText?: string
   customProgressBarSection?: CustomUIModules
   customControlsSection?: CustomUIModules
   customAdditionalControls?: CustomUIModules
@@ -750,8 +751,24 @@ class H5AudioPlayer extends Component<PlayerProps> {
         </audio>
         {header && <div className="rhap_header">{header}</div>}
         <div className={`rhap_main ${getMainLayoutClassName(layout)}`}>
-          <div className="rhap_progress-section">{this.renderUIModules(customProgressBarSection)}</div>
-          <div className="rhap_controls-section">{this.renderUIModules(customControlsSection)}</div>
+          <div className="rhap_controls-section">
+            {this.renderUIModules([RHAP_UI.CURRENT_TIME])}
+            <div className="rhap_volume-controls">
+              <div className="rhap_time">{this.props.middleText || ''}</div>
+            </div>
+            {this.renderUIModules([RHAP_UI.DURATION])}
+          </div>
+          <div className="rhap_progress-section">{this.renderUIModules([RHAP_UI.PROGRESS_BAR])}</div>
+
+          <div
+            style={{ justifyContent: 'center', paddingTop: '8px', paddingBottom: '8px' }}
+            className="rhap_controls-section"
+          >
+            {this.renderUIModules([RHAP_UI.MAIN_CONTROLS])}
+          </div>
+          <div className="rhap_controls-section">
+            {this.renderUIModules([RHAP_UI.SPEED, RHAP_UI.VOLUME_CONTROLS, RHAP_UI.SLEEP])}
+          </div>
         </div>
         {footer && <div className="rhap_footer">{footer}</div>}
       </div>

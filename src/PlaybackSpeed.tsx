@@ -49,7 +49,7 @@ class PlaybackSpeed extends Component<PlaybackSpeedProps, PlaybackSpeedState> {
             {this.state.playbackRate}x
           </button>
           {this.state.isDialogOpen && (
-            <div className="rhap_dialog-container">
+            <div className="rhap_dialog-container left-0">
               <div className="rhap_dialog-header">PLAYBACK SPEED</div>
               <div className="rhap_dialog-content">
                 {PLAYBACK_SPEED.map((v, i) => (
