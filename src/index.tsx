@@ -15,6 +15,8 @@ import Duration from './Duration'
 import VolumeBar from './VolumeBar'
 import { RHAP_UI, MAIN_LAYOUT, AUDIO_PRELOAD_ATTRIBUTE, TIME_FORMAT } from './constants'
 import { throttle, getMainLayoutClassName, getDisplayTimeBySeconds } from './utils'
+import PlaybackSpeed from './PlaybackSpeed'
+import SleepTimer from './SleepTimer'
 
 type CustomUIModule = RHAP_UI | ReactElement
 type CustomUIModules = Array<CustomUIModule>
@@ -98,6 +100,9 @@ interface PlayerProps {
   showDownloadProgress?: boolean
   showFilledProgress?: boolean
   showFilledVolume?: boolean
+  showLoopControl?: boolean
+  showSpeedControl?: boolean
+  showSleepControl?: boolean
   timeFormat?: TIME_FORMAT
   header?: ReactNode
   footer?: ReactNode
@@ -163,10 +168,13 @@ class H5AudioPlayer extends Component<PlayerProps> {
     showDownloadProgress: true,
     showFilledProgress: true,
     showFilledVolume: false,
+    showLoopControl: true,
+    showSpeedControl: false,
+    showSleepControl: false,
     customIcons: {},
     customProgressBarSection: [RHAP_UI.CURRENT_TIME, RHAP_UI.PROGRESS_BAR, RHAP_UI.DURATION],
     customControlsSection: [RHAP_UI.ADDITIONAL_CONTROLS, RHAP_UI.MAIN_CONTROLS, RHAP_UI.VOLUME_CONTROLS],
-    customAdditionalControls: [RHAP_UI.LOOP],
+    customAdditionalControls: [RHAP_UI.LOOP, RHAP_UI.SPEED, RHAP_UI.SLEEP],
     customVolumeControls: [RHAP_UI.VOLUME],
     layout: 'stacked',
     hasDefaultKeyBindings: true,
@@ -511,6 +519,7 @@ class H5AudioPlayer extends Component<PlayerProps> {
         } else {
           loopIcon = customIcons.loopOff ? customIcons.loopOff : <Icon icon="mdi:repeat-off" />
         }
+        if (!this.props.showLoopControl) return null
         return (
           <button
             key={key}
@@ -551,6 +560,14 @@ class H5AudioPlayer extends Component<PlayerProps> {
             />
           </div>
         )
+      }
+      case RHAP_UI.SPEED: {
+        if (!this.props.showSpeedControl) return null
+        return <PlaybackSpeed audio={this.audio.current} />
+      }
+      case RHAP_UI.SLEEP: {
+        if (!this.props.showSleepControl) return null
+        return <SleepTimer audio={this.audio.current} />
       }
       default:
         if (!isValidElement(comp)) {

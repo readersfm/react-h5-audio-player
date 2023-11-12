@@ -6,7 +6,7 @@
   "module": "./es/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "NODE_OPTIONS=--openssl-legacy-provider run-p build:cjs build:d.ts build:es build:umd build:css build:less",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider run-p build:cjs build:d.ts build:es build:umd build:css build:less",
     "build:cjs": "cross-env NODE_ENV=cjs babel src --out-dir lib --extensions .tsx,.ts",
     "build:es": "cross-env NODE_ENV=es babel src --out-dir es --extensions .tsx,.ts",
     "build:umd": "webpack",
@@ -16,8 +16,8 @@
     "lint": "eslint src --fix --ext .ts,.tsx",
     "test": "jest --env=jsdom",
     "cov": "jest --env=jsdom --coverage",
-    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 9000",
-    "build:storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook -c .storybook -o docs",
+    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 9000",
+    "build:storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider build-storybook -c .storybook -o docs",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -61,7 +61,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.10.2",
-    "@iconify/react": "^4.1.1"
+    "@iconify/react": "^4.1.1",
+    "shx": "^0.3.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
@@ -92,7 +93,7 @@
     "jest": "^26.6.3",
     "less-plugin-sass2less": "^1.2.0",
     "lint-staged": "^10.2.10",
-    "node-sass": "^7.0.1",
+    "node-sass": "8.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
